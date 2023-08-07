@@ -1,3 +1,5 @@
+import { dispatchMiner } from "actions/dispatchMiner";
+import { generateHarvesters } from "units/harvester";
 import { ErrorMapper } from "utils/ErrorMapper";
 
 declare global {
@@ -34,6 +36,10 @@ declare global {
 export const loop = ErrorMapper.wrapLoop(() => {
   console.log(`Current game tick is ${Game.time}`);
 
+  let harvesters: Creep[] = generateHarvesters();
+  for (let harvester of harvesters) {
+    dispatchMiner(harvester);
+  }
   // Automatically delete memory of missing creeps
   for (const name in Memory.creeps) {
     if (!(name in Game.creeps)) {
