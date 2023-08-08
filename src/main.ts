@@ -1,5 +1,7 @@
+import { dispatchBuilder } from "actions/dispatchBuilder";
 import { dispatchMiner } from "actions/dispatchMiner";
 import { dispatchUpgrader } from "actions/dispatchUpgrader";
+import { generateBuilders } from "units/builder";
 import { generateHarvesters } from "units/harvester";
 import { generateUpgraders } from "units/upgrader";
 import { ErrorMapper } from "utils/ErrorMapper";
@@ -46,6 +48,12 @@ export const loop = ErrorMapper.wrapLoop(() => {
   for (let upgrader of upgraders) {
     dispatchUpgrader(upgrader);
   }
+
+  let builders: Creep[] = generateBuilders();
+  for (let builder of builders) {
+    dispatchBuilder(builder);
+  }
+
   // Automatically delete memory of missing creeps
   for (const name in Memory.creeps) {
     if (!(name in Game.creeps)) {

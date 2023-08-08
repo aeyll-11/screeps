@@ -1,1 +1,1 @@
-export const Upgrader = [WORK,CARRY,MOVE];
+export const Upgrader = [WORK,CARRY,CARRY,MOVE,MOVE];

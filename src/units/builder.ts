@@ -1,10 +1,10 @@
 import { CreepRoles } from "utils/CreepRoles";
-import { Miner } from "utils/archetypes/Miner";
+import { Builder } from "utils/archetypes/Builder";
 
-export const generateBuilder = (): Creep[] => {
+export const generateBuilders = (): Creep[] => {
     let builders: Creep[] = [];
 
-    const BUILDER_WORKER_LIMIT: number = 1;
+    const BUILDER_WORKER_LIMIT: number = 4;
 
     for (let i in Game.creeps) {
         if(Game.creeps[i].memory.role === CreepRoles.Builder) {
@@ -14,13 +14,13 @@ export const generateBuilder = (): Creep[] => {
 
     if (builders.length < BUILDER_WORKER_LIMIT) {
         for(let i = 0; i < BUILDER_WORKER_LIMIT; i++) {
-            Game.spawns['Spawn1'].spawnCreep(Miner, 'builder' + i, {
+            Game.spawns['Spawn1'].spawnCreep(Builder, 'builder' + i, {
                 memory: {
                     role: CreepRoles.Builder,
                     room: 'W43S44',
                     working: true,
                 },
-                directions: i % 0 ? [RIGHT] : [LEFT]
+                directions: [BOTTOM]
             });
         }
     }
