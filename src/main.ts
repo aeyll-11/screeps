@@ -1,5 +1,7 @@
 import { dispatchMiner } from "actions/dispatchMiner";
+import { dispatchUpgrader } from "actions/dispatchUpgrader";
 import { generateHarvesters } from "units/harvester";
+import { generateUpgraders } from "units/upgrader";
 import { ErrorMapper } from "utils/ErrorMapper";
 
 declare global {
@@ -34,11 +36,15 @@ declare global {
 // When compiling TS to JS and bundling with rollup, the line numbers and file names in error messages change
 // This utility uses source maps to get the line numbers and file names of the original, TS source code
 export const loop = ErrorMapper.wrapLoop(() => {
-  console.log(`Current game tick is ${Game.time}`);
 
   let harvesters: Creep[] = generateHarvesters();
   for (let harvester of harvesters) {
     dispatchMiner(harvester);
+  }
+
+  let upgraders: Creep[] = generateUpgraders();
+  for (let upgrader of upgraders) {
+    dispatchUpgrader(upgrader);
   }
   // Automatically delete memory of missing creeps
   for (const name in Memory.creeps) {

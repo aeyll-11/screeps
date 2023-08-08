@@ -4,7 +4,7 @@ import { Miner } from "utils/archetypes/Miner";
 export const generateHarvesters = (): Creep[] => {
     let harvesters: Creep[] = [];
 
-    const HARVESTER_WORKER_LIMIT: number = 4;
+    const HARVESTER_WORKER_LIMIT: number = 2;
 
     for (let i in Game.creeps) {
         if(Game.creeps[i].memory.role === CreepRoles.Harvester) {
@@ -20,11 +20,10 @@ export const generateHarvesters = (): Creep[] => {
                     room: 'W43S44',
                     working: true,
                 },
-                directions: i % 0 ? [LEFT] : [RIGHT]
+                directions: i % 0 ? [RIGHT] : [LEFT]
             });
         }
     }
-
     return harvesters;
 }
 

@@ -1,1 +1,1 @@
-export const Miner = [WORK,WORK,MOVE];
+export const Miner = [WORK,WORK,CARRY,MOVE];
