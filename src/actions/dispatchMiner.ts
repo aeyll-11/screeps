@@ -1,5 +1,4 @@
 export const dispatchMiner = (creep: Creep) => {
-    console.log(creep.store.getFreeCapacity(RESOURCE_ENERGY));
     if(creep.store.getFreeCapacity(RESOURCE_ENERGY) > 0) {
         const sources = creep.room.find(FIND_SOURCES);
 
@@ -25,5 +24,9 @@ export const dispatchMiner = (creep: Creep) => {
                 creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
             }
         }
+    }
+
+    if(creep.fatigue === 0) {
+        creep.suicide();
     }
 }

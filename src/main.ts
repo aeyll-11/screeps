@@ -1,7 +1,9 @@
 import { dispatchBuilder } from "actions/dispatchBuilder";
+import { dispatchFinder } from "actions/dispatchFinder";
 import { dispatchMiner } from "actions/dispatchMiner";
 import { dispatchUpgrader } from "actions/dispatchUpgrader";
 import { generateBuilders } from "units/builder";
+import { generateFinders } from "units/finder";
 import { generateHarvesters } from "units/harvester";
 import { generateUpgraders } from "units/upgrader";
 import { ErrorMapper } from "utils/ErrorMapper";
@@ -25,6 +27,7 @@ declare global {
     role: string;
     room: string;
     working: boolean;
+    informations?: Map<string, unknown>;
   }
 
   // Syntax for adding proprties to `global` (ex "global.log")
@@ -52,6 +55,11 @@ export const loop = ErrorMapper.wrapLoop(() => {
   let builders: Creep[] = generateBuilders();
   for (let builder of builders) {
     dispatchBuilder(builder);
+  }
+
+  let finders: Creep[] = generateFinders();
+  for (let finder of finders) {
+    dispatchFinder(finder);
   }
 
   // Automatically delete memory of missing creeps
